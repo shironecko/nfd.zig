@@ -5,8 +5,8 @@
 |Operation     | Status |
 |--------------|--------|
 |File Open     |   [x]  |
-|Save Dialogue |   [ ]  |
-|Open Folder   |   [ ]  |
+|Save Dialogue |   [x]  |
+|Open Folder   |   [x]  |
 
 ## Usage
 It targets zig master version. To use this, add this package in to your build.zon
