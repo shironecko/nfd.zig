@@ -39,7 +39,17 @@ pub fn install(step: *std.Build.CompileStep) void {
     step.addCSourceFile(.{ .file = .{ .path = prefix ++ "nativefiledialog/src/nfd_common.c" }, .flags = &cflags });
 
     switch (step.target.getOsTag()) {
-        .linux => {
+        .windows => {
+            step.addCSourceFile(.{ .file = .{ .path = prefix ++ "nativefiledialog/src/nfd_win.cpp" }, .flags = &cflags });
+            step.linkSystemLibrary("shell32");
+            step.linkSystemLibrary("ole32");
+            step.linkSystemLibrary("uuid");
+        },
+        .macos => {
+            step.addCSourceFile(.{ .file = .{ .path = prefix ++ "nativefiledialog/src/nfd_cocoa.m" }, .flags = &cflags });
+            step.linkFramework("AppKit");
+        },
+        else => {
             step.addCSourceFile(.{ .file = .{ .path = prefix ++ "nativefiledialog/src/nfd_gtk.c" }, .flags = &cflags });
             step.linkSystemLibrary("atk-1.0");
             step.linkSystemLibrary("gdk-3");
@@ -47,7 +57,6 @@ pub fn install(step: *std.Build.CompileStep) void {
             step.linkSystemLibrary("glib-2.0");
             step.linkSystemLibrary("gobject-2.0");
         },
-        else => @panic("Unsupported Target"),
     }
     step.installHeadersDirectory(prefix ++ "nativefiledialog/src/include", ".");
     step.linkLibC();
