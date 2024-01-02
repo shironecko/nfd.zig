@@ -4,9 +4,9 @@
 ## Supported Operations
 |Operation     | Status |
 |--------------|--------|
-|File Open     |   [x]  |
-|Save Dialogue |   [ ]  |
-|Open Folder   |   [ ]  |
+|File Open     | - [x]  |
+|Save Dialogue | - [ ]  |
+|Open Folder   | - [ ]  |
 
 ## Usage
 It targets zig master version. To use this, add this package in to your build.zon
@@ -33,7 +33,15 @@ In build.zig, add
 ### Creating Open Dialog
 ```rs
 const nfd = @import("nfd");
-nfd.openFileDialog(std.testing.allocator, null, null); //Requires an allocator to convert sentinal terminated slice to zig slice. Use openFileDialogZ() otherwise
+nfd.openDialog(std.testing.allocator, null, null); //Requires an allocator to convert sentinal terminated slice to zig slice. Use openFileDialogZ() otherwise
 ```
-
+### Creating Save File Dialog
+```rs
+const nfd = @import("nfd");
+nfd.saveDialog(std.testing.allocator, null, null); //Requires an allocator to convert sentinal terminated slice to zig slice. Use saveDialogZ() otherwise
+```
+### Creating Pick Folder Dialog
+```rs
+const nfd = @import("nfd");
+nfd.pickFolder(std.testing.allocator, null, null); //Requires an allocator to convert sentinal terminated slice to zig slice. Use pickFolderZ() otherwise
 
