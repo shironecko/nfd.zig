@@ -34,13 +34,13 @@ pub fn install(step: *std.Build.CompileStep) void {
     });
 
     const cflags = [_][]const u8{"-Wall"};
-    step.addIncludePath(.{ .path = prefix ++ "lib/nativefiledialog/src/include" });
+    step.addIncludePath(.{ .path = prefix ++ "nativefiledialog/src/include" });
 
-    step.addCSourceFile(.{ .file = .{ .path = prefix ++ "lib/nativefiledialog/src/nfd_common.c" }, .flags = &cflags });
+    step.addCSourceFile(.{ .file = .{ .path = prefix ++ "nativefiledialog/src/nfd_common.c" }, .flags = &cflags });
 
     switch (step.target.getOsTag()) {
         .linux => {
-            step.addCSourceFile(.{ .file = .{ .path = prefix ++ "lib/nativefiledialog/src/nfd_gtk.c" }, .flags = &cflags });
+            step.addCSourceFile(.{ .file = .{ .path = prefix ++ "nativefiledialog/src/nfd_gtk.c" }, .flags = &cflags });
             step.linkSystemLibrary("atk-1.0");
             step.linkSystemLibrary("gdk-3");
             step.linkSystemLibrary("gtk-3");
@@ -49,6 +49,6 @@ pub fn install(step: *std.Build.CompileStep) void {
         },
         else => @panic("Unsupported Target"),
     }
-    step.installHeadersDirectory(prefix ++ "lib/nativefiledialog/src/include", ".");
+    step.installHeadersDirectory(prefix ++ "nativefiledialog/src/include", ".");
     step.linkLibC();
 }

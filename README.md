@@ -15,8 +15,8 @@ It targets zig master version. To use this, add this package in to your build.zo
 .{
     .dependencies = {
             .nfd = .{
-                .url = "",
-                .hash = "",
+                .url = "https://github.com/ArtemisX64/nfd.zig/archive/refs/tags/0.0.0.tar.gz",
+                .hash = "12203d430d0369b310dded60e402f5ec0a2310a29376ee57c5a250c612ea20ef8a6c",
             },
         },
 }
@@ -24,7 +24,7 @@ It targets zig master version. To use this, add this package in to your build.zo
 
 In build.zig, add
 ```rs
-    const nfd = @import("nfd.zig");
+    const nfd = @import("nfd");
 
     nfd.install(exe);
 ```
