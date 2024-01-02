@@ -1,10 +1,12 @@
 const std = @import("std");
+const c = @import("c.zig");
 const testing = std.testing;
 
-export fn add(a: i32, b: i32) i32 {
-    return a + b;
-}
+pub const openFileDialog = c.openFileDialog;
+pub const openFileDialogZ = c.openFileDialogZ;
 
-test "basic add functionality" {
-    try testing.expect(add(3, 7) == 10);
+test "Open File Dialog" {
+    const path: ?[]const u8 = try openFileDialog(testing.allocator, null, null);
+    _ = path;
+    try testing.expectEqual(true);
 }
