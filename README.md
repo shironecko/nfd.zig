@@ -2,11 +2,11 @@
 **nfd.zig** is a native file dialogue for zig. It's aim is to make Native File Dialogue, easy to use in zig programs
 
 ## Supported Operations
-|Operation     | Status |
-|--------------|--------|
-|File Open     |   [x]  |
-|Save Dialogue |   [ ]  |
-|Open Folder   |   [ ]  |
+|Operation     |        Status          |
+|--------------|------------------------|
+|File Open     |<ul><li> [x] </li></ul> |
+|Save Dialogue |<ul><li> [ ] </li></ul> |
+|Open Folder   |<ul><li> [ ] </li></ul> |
 
 ## Usage
 It targets zig master version. To use this, add this package in to your build.zon
