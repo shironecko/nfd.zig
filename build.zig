@@ -34,10 +34,9 @@ pub fn install(step: *std.Build.Step.Compile) void {
     });
 
     const cflags = [_][]const u8{"-Wall"};
-    step.addIncludePath(.{ .path = prefix ++ "nativefiledialog/src/include" });
+    step.addIncludePath(.{ .path = prefix ++ "src/include" });
 
     step.addCSourceFile(.{ .file = .{ .path = prefix ++ "nativefiledialog/src/nfd_common.c" }, .flags = &cflags });
-    step.installHeader(prefix ++ "nativefiledialog/src/include/nfd.h", "nfd.h");
 
     switch (step.rootModuleTarget().os.tag) {
         .windows => {
@@ -59,6 +58,6 @@ pub fn install(step: *std.Build.Step.Compile) void {
             step.linkSystemLibrary("gobject-2.0");
         },
     }
-    step.installHeadersDirectory(prefix ++ "nativefiledialog/src/include", ".");
+    step.installHeadersDirectory(prefix ++ "src/include", ".");
     step.linkLibC();
 }

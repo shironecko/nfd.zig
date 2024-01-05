@@ -4,7 +4,7 @@ const log = std.log.scoped(.nfd);
 //TODO: Refactor
 
 const c = @cImport({
-    @cInclude("nfd.h");
+    @cInclude("include/nfd.h");
 });
 
 pub const Error = error{
