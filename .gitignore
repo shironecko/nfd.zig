@@ -5,3 +5,4 @@ lib/nativefiledialog/screens
 lib/nativefiledialog/docs
 lib/nativefiledialog/.github
 zig-cache/
+zig-out/
