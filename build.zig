@@ -27,14 +27,14 @@ pub fn build(b: *std.Build) void {
 }
 
 pub fn install(step: *std.Build.Step.Compile) void {
-    const prefix = comptime std.fs.path.dirname(@src().file).? ++ std.fs.path.sep_str;
+    const prefix = srcdir ++ std.fs.path.sep_str;
 
     step.root_module.addAnonymousImport("nfd", .{
         .root_source_file = .{ .path = prefix ++ "src/root.zig" },
     });
 
     const cflags = [_][]const u8{"-Wall"};
-    step.addIncludePath(.{ .path = prefix ++ "src/include" });
+    step.addIncludePath(.{ .path = prefix ++ "nativefiledialog/src/include" });
 
     step.addCSourceFile(.{ .file = .{ .path = prefix ++ "nativefiledialog/src/nfd_common.c" }, .flags = &cflags });
 
@@ -58,7 +58,13 @@ pub fn install(step: *std.Build.Step.Compile) void {
             step.linkSystemLibrary("gobject-2.0");
         },
     }
-    step.installHeadersDirectory(prefix ++ "src/include", ".");
-    step.installHeader(prefix ++ "src/include/nfd.h", "nfd.h");
+    step.installHeadersDirectory(prefix ++ "nativefiledialog/src/include", ".");
+    step.installHeader(prefix ++ "nativefiledialog/src/include/nfd.h", "nfd.h");
     step.linkLibC();
 }
+
+const srcdir = struct {
+    fn getSrcDir() []const u8 {
+        return std.fs.path.dirname(@src().file).?;
+    }
+}.getSrcDir();
