@@ -37,6 +37,7 @@ pub fn install(step: *std.Build.Step.Compile) void {
     step.addIncludePath(.{ .path = prefix ++ "nativefiledialog/src/include" });
 
     step.addCSourceFile(.{ .file = .{ .path = prefix ++ "nativefiledialog/src/nfd_common.c" }, .flags = &cflags });
+    step.installHeader(prefix ++ "nativefiledialog/src/include/nfd.h", "nfd.h");
 
     switch (step.rootModuleTarget().os.tag) {
         .windows => {
