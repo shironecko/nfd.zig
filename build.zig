@@ -59,5 +59,6 @@ pub fn install(step: *std.Build.Step.Compile) void {
         },
     }
     step.installHeadersDirectory(prefix ++ "src/include", ".");
+    step.installHeader(prefix ++ "src/include/nfd.h", "nfd.h");
     step.linkLibC();
 }
