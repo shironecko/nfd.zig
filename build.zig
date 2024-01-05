@@ -26,19 +26,22 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_lib_unit_tests.step);
 }
 
-pub fn install(step: *std.Build.CompileStep) void {
+pub fn install(step: *std.Build.Step.Compile) void {
     const prefix = comptime std.fs.path.dirname(@src().file).? ++ std.fs.path.sep_str;
 
-    step.addAnonymousModule("nfd", .{
-        .source_file = .{ .path = prefix ++ "src/root.zig" },
+    step.root_module.addAnonymousImport("nfd", .{
+        .root_source_file = .{ .path = prefix ++ "src/root.zig" },
     });
+    // step.addAnonymousModule("nfd", .{
+    //     .source_file = .{ .path = prefix ++ "src/root.zig" //},
+    // });
 
     const cflags = [_][]const u8{"-Wall"};
     step.addIncludePath(.{ .path = prefix ++ "nativefiledialog/src/include" });
 
     step.addCSourceFile(.{ .file = .{ .path = prefix ++ "nativefiledialog/src/nfd_common.c" }, .flags = &cflags });
 
-    switch (step.target.getOsTag()) {
+    switch (step.rootModuleTarget().os.tag) {
         .windows => {
             step.addCSourceFile(.{ .file = .{ .path = prefix ++ "nativefiledialog/src/nfd_win.cpp" }, .flags = &cflags });
             step.linkSystemLibrary("shell32");
