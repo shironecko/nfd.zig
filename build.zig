@@ -32,9 +32,6 @@ pub fn install(step: *std.Build.Step.Compile) void {
     step.root_module.addAnonymousImport("nfd", .{
         .root_source_file = .{ .path = prefix ++ "src/root.zig" },
     });
-    // step.addAnonymousModule("nfd", .{
-    //     .source_file = .{ .path = prefix ++ "src/root.zig" //},
-    // });
 
     const cflags = [_][]const u8{"-Wall"};
     step.addIncludePath(.{ .path = prefix ++ "nativefiledialog/src/include" });
